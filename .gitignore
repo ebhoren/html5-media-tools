@@ -2,3 +2,6 @@
 .AppleDouble
 ._*
 .svn/
+
+output/
+tmp/
