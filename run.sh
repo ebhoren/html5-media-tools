@@ -67,11 +67,12 @@ do
 
             if [ $VIDEO_PASS -ge 2 ]; then
                 bin/ffmpeg -i $i -s $VIDEO_SIZE -codec:v libx264 -vprofile main -b:v $VIDEO_BITRATE -an -pass 1 -passlogfile tmp/passlog.dv -f mp4 -y /dev/null
-                bin/ffmpeg -i $i -s $VIDEO_SIZE -codec:v libx264 -vprofile main -b:v $VIDEO_BITRATE -codec:a libvo_aacenc -b:a $AUDIO_BITRATE -ar $AUDIO_SAMPLE_RATE -pass 2 -passlogfile tmp/passlog.dv -f mp4 -y "$(echo $TEMP | sed 's/\.mov/\.mp4/')";
+                bin/ffmpeg -i $i -s $VIDEO_SIZE -codec:v libx264 -vprofile main -b:v $VIDEO_BITRATE -codec:a aac -b:a $AUDIO_BITRATE -ar $AUDIO_SAMPLE_RATE -strict -2 -pass 2 -passlogfile tmp/passlog.dv -f mp4 -y "$(echo $TEMP | sed 's/\.mov/\.mp4/')";
             fi
 
             if [ $VIDEO_PASS -eq 1 ]; then
-                bin/ffmpeg -i $i -s $VIDEO_SIZE -codec:v libx264 -vprofile main -b:v $VIDEO_BITRATE -codec:a libvo_aacenc -b:a $AUDIO_BITRATE -ar $AUDIO_SAMPLE_RATE -f mp4 -y "$(echo $TEMP | sed 's/\.mov/\.mp4/')";
+                #bin/ffmpeg -i $i -s $VIDEO_SIZE -codec:v libx264 -vprofile main -b:v $VIDEO_BITRATE -codec:a libvo_aacenc -b:a $AUDIO_BITRATE -ar $AUDIO_SAMPLE_RATE -f mp4 -y "$(echo $TEMP | sed 's/\.mov/\.mp4/')";
+                bin/ffmpeg -i $i -s $VIDEO_SIZE -codec:v libx264 -vprofile main -b:v $VIDEO_BITRATE -codec:a aac -b:a $AUDIO_BITRATE -ar $AUDIO_SAMPLE_RATE -strict -2 -f mp4 -y "$(echo $TEMP | sed 's/\.mov/\.mp4/')";
             fi
 
             bin/qtfaststart/bin/qtfaststart "$(echo $TEMP | sed 's/\.mov/\.mp4/')" "$(echo $DESTINATION | sed 's/\.mov/\.mp4/')";
