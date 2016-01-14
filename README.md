@@ -16,3 +16,9 @@ Run Bash script by typing:
 
 All your processed medias with be in the **output** folder.
 Enjoy!
+
+
+Problems
+---------------------
+If you are unable to run the Bash script, type:
+> chmod +x run.sh
